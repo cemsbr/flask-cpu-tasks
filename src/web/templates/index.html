@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    #scroll_area {
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<p>Web server {{ hostname }}.</p>
+
+<h2>Log</h2>
+
+<input type="checkbox" class="scroll" checked 
+  onClick="javascript:toggle_scroll(this)"> Scroll
+<div id="scroll_area">
+  <pre id="log"></pre>
+  <input type="checkbox" class="scroll" checked
+    onClick="javascript:toggle_scroll(this)"> Scroll
+</div>
+
+<script src="/static/socket.io.js"></script>
+<script src="/static/log.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+FROM python:3.6-alpine3.7
+
+COPY requirements.txt /tmp/
+# musl-dev: limits.h
+RUN apk add --no-cache --virtual .build-deps \
+        gcc \
+        musl-dev \
+    && pip install --no-cache-dir -r /tmp/requirements.txt \
+    && apk del --purge .build-deps
+
+COPY settings.py /root/
+COPY src/communication.py /root/src/
+COPY src/worker /root/src/worker/
+
+WORKDIR /root/src/worker
+ENTRYPOINT ["celery", "--app=worker", "worker", "--concurrency=1", \
+            "--prefetch-multiplier=1", "--pool=eventlet"]
+
+# vim: set ft=dockerfile:

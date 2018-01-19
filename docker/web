@@ -1,0 +1,20 @@
+FROM python:3.6-alpine3.7
+
+COPY requirements.txt /tmp/
+# musl-dev: limits.h
+RUN apk add --no-cache --virtual .build-deps \
+        gcc \
+        musl-dev \
+    && pip install --no-cache-dir -r /tmp/requirements.txt \
+    && apk del --purge .build-deps
+
+COPY settings.py /root/
+COPY src/communication.py /root/src/
+COPY src/web /root/src/web/
+
+WORKDIR /root/src/web
+EXPOSE 80
+ENV FLASK_APP=web.py
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--port=80"]
+
+# vim: set ft=dockerfile:
