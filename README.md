@@ -64,11 +64,11 @@ To delete the containers, use the `stop` and then `rm` commands.
 
 ## Creating Tasks
 
-With curl (`http://localhost:5000/tasks` for local install):
+With curl (for docker, use `http://172.17.0.3/tasks`):
 
-`curl -X POST -H "Content-Type: application/json" -d '{"name": "Hello"}' http://172.17.0.2/tasks`
+`curl -X POST -H "Content-Type: application/json" -d '{"name": "Hello"}' http://localhost:5000/tasks`
 
-With httpie (`172.17.0.2/tasks` for docker install):
+With httpie (use `172.17.0.3/tasks` for docker install):
 
 `http :5000/tasks name=Hello`
 
